@@ -1,0 +1,25 @@
+{
+    "@id" : "http://localhost:8889/annotation/1478703509400",
+    "@type" : "oa:Annotation",
+    "dcterms:created" : "2016-11-09T15:58:29",
+    "resource" : [ {
+      "@id" : "_:b2",
+      "@type" : "dctypes:Text",
+      "http://dev.llgc.org.uk/sas/full_text" : "Lekker ding ;)",
+      "format" : "text/html",
+      "chars" : "<p>Lekker ding ;)</p>"
+    } ],
+    "on" : {
+      "@id" : "_:b0",
+      "@type" : "oa:SpecificResource",
+      "within" : "http://oculus-dev.harvardx.harvard.edu/manifests/huam:320161",
+      "selector" : {
+        "@id" : "_:b1",
+        "@type" : "oa:FragmentSelector",
+        "value" : "xywh=1247,986,71,71"
+      },
+      "full" : "https://oculus-dev.harvardx.harvard.edu/manifests/huam:320161/canvas/canvas-9013118.json"
+    },
+    "motivation" : [ "oa:commenting" ],
+    "@context" : "http://iiif.io/api/presentation/2/context.json"
+  }
