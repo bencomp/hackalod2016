@@ -1,0 +1,12 @@
+# Zoek EDBO-boeken op titel
+
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX foafX: <http://xmlns.com/foaf/>
+
+SELECT ?book ?title ?depiction
+
+WHERE {
+?book rdfs:label ?title; a kbo:Boek; foafX:depiction ?depiction.
+
+	FILTER (CONTAINS(?title, "van"))
+}
