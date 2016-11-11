@@ -18,27 +18,27 @@
                 "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0001:image/full/full/0/native.jpg",
                 "@type": "dctypes:Image"
               },
-              "on": "http://",
+              "on": "http://imageserver/iiif/manifest1/canvas/p1.json",
               "motivation": "sc:painting",
-              "@id": "https://parmenides.leidenuniv.nl/aleph-cgi/HACKALOD/manifest1/annotation/canvas/p1/anno.json",
+              "@id": "http://imageserver/iiif/manifest1/annotation/canvas/p1/anno.json",
               "@type": "oa:Annotation"
             }
           ],
           "height": 4216,
-          "@id": "https://parmenides.leidenuniv.nl/aleph-cgi/HACKALOD/manifest1/canvas/p1.json",
+          "@id": "http://imageserver/iiif/manifest1/canvas/p1.json",
           "thumbnail": {
             "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0001:image/full/150,/0/native.jpg"
           }
         }
       ],
       "viewingDirection": "left-to-right",
-      "@id": "https://parmenides.leidenuniv.nl/aleph-cgi/HACKALOD/manifest1/sequence1.json",
+      "@id": "http://imageserver/iiif/manifest1/sequence1.json",
       "@type": "sc:Sequence",
       "viewingHint": "paged"
     }
   ],
   "label": "Ordre van procederen voor de gerichten der heerlykheid Wedde en Westerwoldingeland, Bellingewolde en Blyham cum annexis",
   "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "https://parmenides.leidenuniv.nl/aleph-cgi/HACKALOD/manifest1.json",
+  "@id": "http://imageserver/iiif/manifest1.json",
   "@type": "sc:Manifest"
 }
