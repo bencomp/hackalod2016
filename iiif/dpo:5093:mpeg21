@@ -4,7 +4,7 @@
     {
       "canvases": [
         {
-          "label": "p1",
+          "label": "page 1",
           "width": 3435,
           "@type": "sc:Canvas",
           "images": [
@@ -18,27 +18,27 @@
                 "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0001:image/full/full/0/native.jpg",
                 "@type": "dctypes:Image"
               },
-              "on": "http://imageserver/iiif/manifest1/canvas/p1.json",
+              "on": "http://imageserver/iiif/dpo:5093:mpeg21/canvas/0001.json",
               "motivation": "sc:painting",
-              "@id": "http://imageserver/iiif/manifest1/annotation/canvas/p1/anno.json",
+              "@id": "http://imageserver/iiif/dpo:5093:mpeg21/canvas/0001/anno1.json",
               "@type": "oa:Annotation"
             }
           ],
           "height": 4216,
-          "@id": "http://imageserver/iiif/manifest1/canvas/p1.json",
+          "@id": "http://imageserver/iiif/dpo:5093:mpeg21/canvas/0001.json",
           "thumbnail": {
             "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0001:image/full/150,/0/native.jpg"
           }
         }
       ],
       "viewingDirection": "left-to-right",
-      "@id": "http://imageserver/iiif/manifest1/sequence1.json",
+      "@id": "http://imageserver/iiif/dpo:5093:mpeg21/sequence1.json",
       "@type": "sc:Sequence",
       "viewingHint": "paged"
     }
   ],
   "label": "Ordre van procederen voor de gerichten der heerlykheid Wedde en Westerwoldingeland, Bellingewolde en Blyham cum annexis",
   "@context": "http://iiif.io/api/presentation/2/context.json",
-  "@id": "http://imageserver/iiif/manifest1.json",
+  "@id": "http://imageserver/iiif/dpo:5093:mpeg21",
   "@type": "sc:Manifest"
 }

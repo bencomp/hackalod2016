@@ -24,14 +24,22 @@
          "id": "viewer",
          "layout": "1x1",
          "data": [
-           { "manifestUri": "http://imageserver/iiif/manifest1.json", "location": "HACKALOD"}
+           { "manifestUri": "http://imageserver/iiif/dpo:5093:mpeg21", "location": "HACKALOD"}
          ],
          "windowObjects": [{
-		  loadedManifest: "http://imageserver/iiif/manifest1.json",
-		  canvasID: "http://imageserver/iiif/manifest1/canvas/p1.json",
+		  loadedManifest: "http://imageserver/iiif/dpo:5093:mpeg21",
+		  canvasID: "http://imageserver/iiif/dpo:5093:mpeg21/canvas/0001.json",
 		  viewType: "ImageView"
 		  }],
-         "annotationEndpoint": { "name":"Local Storage", "module": "LocalStorageEndpoint" }
+         annotationEndpoint: {
+				name: 'Simple Annotation Store Endpoint',
+				module: 'SimpleASEndpoint',
+				options: {
+					url: 'http://localhost:8889/annotation',
+				  storeId: 'comparison',
+				  APIKey: 'user_auth'
+				}
+		  }
        });
      });
     </script>
