@@ -15,7 +15,7 @@
                   "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0001:image"
                 },
                 "format": "image/jpeg",
-                "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0001:image/full/full/0/native.jpg",
+                "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0001:image/full/full/0/default.jpg",
                 "@type": "dctypes:Image"
               },
               "on": "http://imageserver/iiif/dpo:5093:mpeg21/canvas/0001.json",
@@ -27,7 +27,7 @@
           "height": 4216,
           "@id": "http://imageserver/iiif/dpo:5093:mpeg21/canvas/0001.json",
           "thumbnail": {
-            "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0001:image/full/150,/0/native.jpg"
+            "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0001:image/full/150,/0/default.jpg"
           }
         },
         {
@@ -42,7 +42,7 @@
                   "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0002:image"
                 },
                 "format": "image/jpeg",
-                "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0002:image/full/full/0/native.jpg",
+                "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0002:image/full/full/0/default.jpg",
                 "@type": "dctypes:Image"
               },
               "on": "http://imageserver/iiif/dpo:5093:mpeg21/canvas/0002.json",
@@ -54,7 +54,7 @@
           "height": 4216,
           "@id": "http://imageserver/iiif/dpo:5093:mpeg21/canvas/0002.json",
           "thumbnail": {
-            "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0002:image/full/150,/0/native.jpg"
+            "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0002:image/full/150,/0/default.jpg"
           }
         },
         {
@@ -69,7 +69,7 @@
                   "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0003:image"
                 },
                 "format": "image/jpeg",
-                "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0003:image/full/full/0/native.jpg",
+                "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0003:image/full/full/0/default.jpg",
                 "@type": "dctypes:Image"
               },
               "on": "http://imageserver/iiif/dpo:5093:mpeg21/canvas/0003.json",
@@ -81,7 +81,7 @@
           "height": 4216,
           "@id": "http://imageserver/iiif/dpo:5093:mpeg21/canvas/0003.json",
           "thumbnail": {
-            "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0003:image/full/150,/0/native.jpg"
+            "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0003:image/full/150,/0/default.jpg"
           }
         },
         {
@@ -96,7 +96,7 @@
                   "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0004:image"
                 },
                 "format": "image/jpeg",
-                "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0004:image/full/full/0/native.jpg",
+                "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0004:image/full/full/0/default.jpg",
                 "@type": "dctypes:Image"
               },
               "on": "http://imageserver/iiif/dpo:5093:mpeg21/canvas/0004.json",
@@ -108,7 +108,7 @@
           "height": 4216,
           "@id": "http://imageserver/iiif/dpo:5093:mpeg21/canvas/0004.json",
           "thumbnail": {
-            "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0004:image/full/150,/0/native.jpg"
+            "@id": "http://imageserver:8182/iiif/2/dpo:5093:mpeg21:0004:image/full/150,/0/default.jpg"
           }
         }
       ],
