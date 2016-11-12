@@ -41,11 +41,11 @@
        if (!q || !s) {
        		manifestUri = "http://imageserver/iiif/dpo:5093:mpeg21";
        	} else {
-       		manifestUri = "https://parmenides.leidenuniv.nl/aleph-cgi/HACKALOD/manifest?q="+q+"&s="+s;
+       		manifestUri = "http://parmenides.leidenuniv.nl/aleph-cgi/HACKALOD/manifest?q="+q+"&s="+s;
        	}
        Mirador({
          "id": "viewer",
-         "layout": "1x1",
+         "layout": "1x2",
          "workspaceType": "compare",
          "data": [
            { "manifestUri": manifestUri, "location": "HACKALOD"}
@@ -54,13 +54,31 @@
          	"sidePanelOptions" : {
 				"toc" : false,
 				"annotations" : true
-			}
+			},
+			"canvasControls": { // The types of controls available to be displayed on a canvas
+				"annotations" : {
+				  "annotationState" : 'on', //[_'off'_, 'on'] whether or not to turn on the annotation layer on window load
+				  "annotationRefresh" : true, //whether or not to display the refresh icon for annotations
+					}
+			},
+			"sidePanelVisible" : false
 		 },
          "windowObjects": [{
 		  loadedManifest: manifestUri,
 		  //canvasID: "http://imageserver/iiif/dpo:5093:mpeg21/canvas/0001.json",
 		  viewType: "ImageView"
 		  }],
+		  'mainMenuSettings': {
+			  'show': false,
+			  'buttons' : {
+				'bookmark' : false,
+				'layout' : false,
+				'options' : false,
+				'fullScreenViewer': true
+			}},
+			'availableAnnotationDrawingTools': [
+				   'Rectangle', 'Ellipse'
+			],
          annotationEndpoint: {
 				name: 'Simple Annotation Store Endpoint',
 				module: 'SimpleASEndpoint',
