@@ -18,17 +18,47 @@
 
     <script src="build/mirador/mirador.js"></script>
     <script type="text/javascript">
-
+	// https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+	function getParameterByName(name, url) {
+		if (!url) {
+		  url = window.location.href;
+		}
+		name = name.replace(/[\[\]]/g, "\\$&");
+		var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+			results = regex.exec(url);
+		if (!results) return null;
+		if (!results[2]) return '';
+		return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
+	
+	
+	
+	
      $(function() {
+       var q = getParameterByName("q");
+       var s = getParameterByName("s");
+       var manifestUri;
+       if (!q || !s) {
+       		manifestUri = "http://imageserver/iiif/dpo:5093:mpeg21";
+       	} else {
+       		manifestUri = "https://parmenides.leidenuniv.nl/aleph-cgi/HACKALOD/manifest?q="+q+"&s="+s;
+       	}
        Mirador({
          "id": "viewer",
          "layout": "1x1",
+         "workspaceType": "compare",
          "data": [
-           { "manifestUri": "http://imageserver/iiif/dpo:5093:mpeg21", "location": "HACKALOD"}
+           { "manifestUri": manifestUri, "location": "HACKALOD"}
          ],
+         "windowSettings": {
+         	"sidePanelOptions" : {
+				"toc" : false,
+				"annotations" : true
+			}
+		 },
          "windowObjects": [{
-		  loadedManifest: "http://imageserver/iiif/dpo:5093:mpeg21",
-		  canvasID: "http://imageserver/iiif/dpo:5093:mpeg21/canvas/0001.json",
+		  loadedManifest: manifestUri,
+		  //canvasID: "http://imageserver/iiif/dpo:5093:mpeg21/canvas/0001.json",
 		  viewType: "ImageView"
 		  }],
          annotationEndpoint: {
