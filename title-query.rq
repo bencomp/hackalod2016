@@ -4,9 +4,22 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX foafX: <http://xmlns.com/foaf/>
 
 SELECT ?book ?title ?depiction
+FROM NAMED <http://lod.kb.nl/edbo/>
+FROM NAMED <http://lod.kb.nl/byvanck/>
+WHERE
+{
+  {GRAPH <http://lod.kb.nl/edbo/>
+  {
+    ?book rdfs:label ?title; a kbo:Boek; foafX:depiction ?depiction.
 
-WHERE {
-?book rdfs:label ?title; a kbo:Boek; foafX:depiction ?depiction.
+	FILTER (CONTAINS(?title, "maarland"))
+  } } UNION {
+  GRAPH <http://lod.kb.nl/byvanck/>
+  {
+      ?book rdfs:label ?title; foafX:depiction ?depiction.
 
-	FILTER (CONTAINS(?title, "van"))
+	FILTER (CONTAINS(?title, "Valerius"))
+  } }
 }
+
+LIMIT 20
