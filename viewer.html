@@ -48,7 +48,8 @@
          "layout": "1x2",
          "workspaceType": "compare",
          "data": [
-           { "manifestUri": manifestUri, "location": "HACKALOD"}
+           { "manifestUri": manifestUri, "location": "HACKALOD"},
+           { "manifestUri": "http://imageserver/iiif/dpo:5093:mpeg21", "location": "HACKALOD"}
          ],
          "windowSettings": {
          	"sidePanelOptions" : {
@@ -67,7 +68,9 @@
 		  loadedManifest: manifestUri,
 		  //canvasID: "http://imageserver/iiif/dpo:5093:mpeg21/canvas/0001.json",
 		  viewType: "ImageView"
-		  }],
+		  },
+		  {loadedManifest: manifestUri,
+		  viewType: "ImageView"}],
 		  'mainMenuSettings': {
 			  'show': false,
 			  'buttons' : {
