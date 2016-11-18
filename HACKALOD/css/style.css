@@ -1,0 +1,70 @@
+#!/exlibris/aleph/a20_1/product/bin/perl
+
+use strict;
+use CGI qw(:standard :cgi-lib);
+
+print header(-type=>"text/css",-charset=>'utf-8',-expires=>'1s');
+
+print <<'EOCSS';
+
+BODY {
+  margin-top: 130px;
+  font: 1.1em Vestula;
+}
+
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+  background-color: white;
+
+  height:115px;
+  width:100%;
+}
+#header .logo {
+  float: left;
+  margin: 18px 22px;
+  width: 151px;
+}
+
+#searchbar {
+  position: relative;
+  left: 10%;
+  top: 37px;
+}
+
+.book .pages.lefttoright {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  height: 200px;
+}
+
+.book .pages .page {
+  /*float: left;*/
+  display: inline-block;
+  min-width: 120px;
+  padding: 5px;
+}
+
+.book .pages .page IMG {
+  display: block;
+  margin: 0 auto;
+  height: 150;
+}
+
+.book .pages .page.selected IMG {
+  -webkit-box-shadow:0 0 15px blue; 
+  -moz-box-shadow: 0 0 15px blue; 
+  box-shadow:0 0 15px blue;
+}
+
+.book .pages .page .caption {
+  width: 100%;
+  text-align: center;
+}
+
+}
+
+EOCSS

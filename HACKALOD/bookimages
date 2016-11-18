@@ -1,0 +1,122 @@
+#!/exlibris/aleph/a20_1/product/bin/perl
+
+use strict;
+use CGI qw(:standard :cgi-lib);
+
+use CGI::Carp qw(fatalsToBrowser);
+use Net::LDAPS qw(:all);
+use Net::LDAP::Util;
+use LWP::UserAgent;
+use URI::Escape;
+use lib '.';
+use XMLHash qw/parsexmlstring xml_string hash_for_path text_for_path array_for_path string_for_path/;
+
+my $query = new CGI;
+my %args = $query->Vars();
+my $ipath = lc $ENV{PATH_INFO};
+
+print header(-type=>"application/json",-charset=>'utf-8',-expires=>'1s');
+
+my $bookid = $args{'bookid'};
+#$bookid = 'dpo:7254:mpeg21' unless defined $bookid;
+#$bookid = 'BYVANCKB:mimi_69b10:008r';
+
+if ($bookid =~ m{BYVANCKB}) {
+  my $datasetname = 'http://lod.kb.nl/byvanck/';
+  $bookid = 'http://resolver.kb.nl/resolve?urn=' . $bookid;
+  my $sparql =<<"SPARQL";
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX foafX: <http://xmlns.com/foaf/>
+
+SELECT ?depiction
+WHERE
+{
+      ?bookid foafX:depiction <$bookid> .
+      ?bookid foafX:depiction ?depiction.
+}
+SPARQL
+  my $url = 'http://lod.kb.nl/sparql?default-graph-uri=';
+  $url .= uri_escape($datasetname);
+  $url .= '&query=';
+  $url .= uri_escape($sparql);
+  $url .= '&format=' . uri_escape('application/sparql-results+xml');
+  $url .= '&timeout=180000&debug=on';
+
+  my $ua = LWP::UserAgent->new;
+  $ua->timeout(10);
+  $ua->env_proxy;
+
+  my $response = $ua->get($url);
+
+  my $xml = $response->content;
+  my $data = parsexmlstring($xml);
+
+  my $json = '{"pages":[';
+  my $results = array_for_path($data, 'sparql/results/result');
+  foreach my $result (@$results) {
+    eval {
+      my $depiction = text_for_path($result, 'binding[name="depiction"]/uri');
+      my ($jp2url, $pagetitle) = $depiction =~ m{urn=(.+:([^:]+))$}; 
+      $json .= "\n" . '{ "title":"' . $pagetitle . '","id":"' . $jp2url . '" },'; 
+    };
+    if ($@) {
+
+    }
+  }
+$json =~ s/,$/\n]}/;
+print $json;
+
+}
+else {
+my $oaiid = "DPO:$bookid";
+
+my $oaiurl = "http://services.kb.nl/mdo/oai?";
+$oaiurl .= "verb=GetRecord";
+$oaiurl .= "&metadataPrefix=didl";
+$oaiurl .= "&identifier=$oaiid";
+
+my $ua = LWP::UserAgent->new;
+$ua->timeout(10);
+$ua->env_proxy;
+
+my $response = $ua->get($oaiurl);
+
+my $xml = $response->content;
+$xml =~ s{(=\s*"[^"]+)[\n\r]+\s*([^"]+")}{$1 $2}g;
+
+my $data = parsexmlstring($xml);
+
+my $json = '{"pages":[';
+my $p = 'OAI-PMH/GetRecord/record/metadata/didl:DIDL/didl:Item[0]'; 
+my $didlitem = hash_for_path($data, $p);
+my $pageitems = array_for_path($didlitem, 'didl:Item');
+
+foreach my $pageitem (@$pageitems) {
+  my $pagetitle = '';
+  my $jp2url = '';
+  my $descriptors = array_for_path($pageitem, 'didl:Descriptor');
+  foreach my $desc (@$descriptors) {
+    my $pt = text_for_path($desc, 'didl:Statement');
+    if ($pt) {
+      $pagetitle .= $pt . ' ';
+    }
+  }
+  my $comps = array_for_path($pageitem, 'didl:Component');
+  foreach my $comp (@$comps) {
+    my $comptype = text_for_path($comp, 'didl:Descriptor/didl:Statement');
+    if ($comptype eq 'image') {
+      my $resource = hash_for_path($comp, 'didl:Resource');
+      if ($resource->{'@mimeType'} eq 'image/jp2') {
+        ($jp2url) = $resource->{'@ref'} =~ m{urn=(.+)};
+      }
+    }
+  }
+  if ($pagetitle && $jp2url) {
+    $pagetitle =~ s{"}{&quot;}g;
+    $pagetitle =~ s{\s+$}{}g;
+    $json .= "\n" . '{ "title":"' . $pagetitle . '","id":"' . $jp2url . '" },';
+  }
+}
+$json =~ s/,$/\n]}/;
+print $json;
+}
