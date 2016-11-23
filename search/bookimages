@@ -1,4 +1,4 @@
-#!/exlibris/aleph/a20_1/product/bin/perl
+#!/usr/bin/perl
 
 use strict;
 use CGI qw(:standard :cgi-lib);
