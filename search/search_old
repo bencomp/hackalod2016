@@ -1,0 +1,98 @@
+#!/exlibris/aleph/a20_1/product/bin/perl
+
+use strict;
+use CGI qw(:standard :cgi-lib);
+
+use CGI::Carp qw(fatalsToBrowser);
+use Net::LDAPS qw(:all);
+use Net::LDAP::Util;
+use LWP::UserAgent;
+use URI::Escape;
+use lib '.';
+use XMLHash qw/parsexmlstring xml_string text_for_path array_for_path string_for_path/;
+
+my $query = new CGI;
+my %args = $query->Vars();
+my $ipath = lc $ENV{PATH_INFO};
+
+print header(-type=>"text/html",-charset=>'utf-8',-expires=>'1s');
+
+my $title = $args{'title'};
+my $searchhtml = '';
+
+if ($title) {
+  my $sparql =<<"SPARQL";
+  PREFIX dcterms: <http://purl.org/dc/terms/>
+  PREFIX foafX: <http://xmlns.com/foaf/>
+
+  SELECT ?book ?title ?depiction
+
+  WHERE {
+    ?book rdfs:label ?title;
+	  a kbo:Boek;
+	  foafX:depiction ?depiction.
+
+	  FILTER regex(?title, "$title", "i")
+  }
+  LIMIT 20
+SPARQL
+  my $datasetname = 'http://lod.kb.nl/edbo/';
+  my $url = 'http://lod.kb.nl/sparql?default-graph-uri=';
+  $url .= uri_escape($datasetname); 
+  $url .= '&query=';
+  $url .= uri_escape($sparql);
+  $url .= '&format=' . uri_escape('application/sparql-results+xml');
+  $url .= '&timeout=180000&debug=on';
+
+  my $ua = LWP::UserAgent->new;
+  $ua->timeout(10);
+  $ua->env_proxy;
+
+  my $response = $ua->get($url);
+
+  my $xml = $response->content;
+  my $data = parsexmlstring($xml);
+
+  my $results = array_for_path($data, 'sparql/results/result');
+  foreach my $result (@$results) {
+    eval {
+      my $bookuri = text_for_path($result, 'binding[name="book"]/uri');  
+      my $title = text_for_path($result, 'binding[name="title"]/literal');  
+      my $depiction = text_for_path($result, 'binding[name="depiction"]/uri');  
+      my ($bookid) = $depiction =~ m{urn=([^&]+)};
+      $searchhtml .= "<DIV class=\"book\"><DIV>$title</DIV><DIV class=\"pages lefttoright\" data-bookid=\"$bookid\"></DIV></DIV>";
+    };
+    if ($@) {
+
+    }
+  }
+}
+print <<"EOHTML";
+<HTML>
+  <HEAD>
+    <TITLE>title</TITLE>
+    <LINK rel="stylesheet" href="css/style.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/search.js"></script>
+  </HEAD>
+  <BODY>
+    <DIV id="header">
+         <a href="https://www.universiteitleiden.nl/">
+            <h1 class="logo">
+    <img src="//www.universiteitleiden.nl/ul2ext/images/zegel.png" width="151" height="64" alt="Universiteit Leiden">
+            </h1>
+        </a>
+    <FORM action="search" method="POST" id="searchbar">
+      <INPUT type="text" name="title" value="$title" id="query"/>
+      <INPUT type="submit" value="Search"/>
+      &nbsp;<SPAN><SELECT id="show"><OPTION value="showall">Show all</option><OPTION value="showsel">Show selected</option><OPTION value="showunsel">Show unselected</OPTION></SELECT></SPAN>
+      &nbsp;<SPAN><INPUT type="checkbox" name="lefttoright" id="lefttoright" checked> display pages left to right</SPAN>
+      &nbsp;<INPUT type="button" value="View selection" id="viewselection"/>
+    </FORM> 
+    </DIV>
+    <DIV id="searchresult">
+    $searchhtml
+    </DIV>
+  </BODY>
+</HTML>
+EOHTML

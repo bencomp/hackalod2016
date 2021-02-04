@@ -1,0 +1,17 @@
+{
+	"@context":"http://iiif.io/api/presentation/2/context.json",
+	"@type":"oa:Annotation",
+	"motivation":["oa:tagging"],
+	"resource":[
+		{
+			"@type":"oa:TextualBody",
+			"chars":"geïllustreerd"
+		}
+	],
+	"on":{
+		"@type":"oa:SpecificResource",
+		"@id":"http://imageserver/iiif/dpo:5093:mpeg21/canvas/0001.json",
+		"full":"http://imageserver/iiif/dpo:5093:mpeg21/canvas/0001.json",
+		"within":"http://imageserver/iiif/dpo:5093:mpeg21"
+	}
+}

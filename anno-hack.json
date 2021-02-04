@@ -1,0 +1,25 @@
+{
+    "@id" : "http://localhost:8889/annotation/1478914896933",
+    "@type" : "oa:Annotation",
+    "dcterms:created" : "2016-11-12T02:41:36",
+    "resource" : [ {
+      "@id" : "_:b2",
+      "@type" : "dctypes:Text",
+      "http://dev.llgc.org.uk/sas/full_text" : "in het Harvard-manifest.",
+      "format" : "text/html",
+      "chars" : "<p>in het Harvard-manifest.</p>"
+    } ],
+    "on" : {
+      "@id" : "_:b0",
+      "@type" : "oa:SpecificResource",
+      "within" : "http://oculus-dev.harvardx.harvard.edu/manifests/drs:18259372-HACK",
+      "selector" : {
+        "@id" : "_:b1",
+        "@type" : "oa:FragmentSelector",
+        "value" : "xywh=678,1520,1159,1315"
+      },
+      "full" : "https://oculus-dev.harvardx.harvard.edu/manifests/drs:18259372/canvas/canvas-18260133.json"
+    },
+    "motivation" : [ "oa:commenting" ],
+    "@context" : "http://iiif.io/api/presentation/2/context.json"
+  }
